@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-from app import rutas
+#from app import rutas
 # Vamos a importar lo necesario para los referenciales
 from app.rutas.ciudad.ciudad_routes import ciudadmod
 
