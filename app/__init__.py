@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 #from app import rutas
 # Vamos a importar lo necesario para los referenciales
-from app.rutas.ciudad.ciudad_routes import ciudadmod
+from app.rutas.referenciales.ciudad.ciudad_routes import ciudadmod
 
 # Se registran los modulos de referenciales
 # Versión corta
