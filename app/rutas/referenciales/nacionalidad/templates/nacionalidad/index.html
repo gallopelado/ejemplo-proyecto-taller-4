@@ -32,15 +32,17 @@ Nacionalidad
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th scope="row" class="align-middle">Asunción</th>
-                                    <td class="d-flex justify-content-end">
-                                        <div class="btn-group" role="group" aria-label="Botones para accion">
-                                            <button type="button" class="btn btn-outline-primary">Editar</button>
-                                            <button type="button" class="btn btn-outline-primary">Eliminar</button>
-                                        </div>
-                                    </td>
-                                  </tr>                            
+                                    {% for item in items %}
+                                    <tr>
+                                        <th scope="row" class="align-middle">{{ item[1] }}</th>
+                                        <td class="d-flex justify-content-end">
+                                            <div class="btn-group" role="group" aria-label="Botones para accion">
+                                                <button type="button" class="btn btn-outline-primary">Editar</button>
+                                                <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}                         
                                 </tbody>
                               </table>
                         </div>
