@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block titulo_pagina %}
+Nacionalidad
+{% endblock %}
+
+{% block contenido %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">
+                {% block mi_dashboard_title %}
+                Referencial Nacionalidad
+                {% endblock %}
+            </h1>
+            <div class="row">
+                <div class="col-xl-10">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex flex-row justify-content-between">
+                                <h5>Inicio - Lista de Nacionalidad</h5>
+                                <button type="button" class="btn btn-outline-primary">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col" class="text-end">Acción</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row" class="align-middle">Asunción</th>
+                                    <td class="d-flex justify-content-end">
+                                        <div class="btn-group" role="group" aria-label="Botones para accion">
+                                            <button type="button" class="btn btn-outline-primary">Editar</button>
+                                            <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                                        </div>
+                                    </td>
+                                  </tr>                            
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+{% endblock %}
