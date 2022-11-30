@@ -15,3 +15,17 @@ class NacionalidadModel:
             return items
         except:
             app.logger.error('Ha ocurrido un error al listar nacionalidades')
+            
+    def agregar(self, descripcion):
+        try:
+            conexion = Conexion()
+            con = conexion.getConexion()
+            cursor = con.cursor()
+            cursor.execute("INSERT INTO public.nacionalidades(descripcion) VALUES(%s)", (descripcion,))
+            # Aqui se confirma la transaccion SQL
+            con.commit()
+            cursor.close()
+            con.close()
+            return True
+        except:
+            app.logger.error('Ha ocurrido un error al INSERTAR')

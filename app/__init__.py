@@ -9,8 +9,9 @@ from app.rutas.referenciales.nacionalidad.nacionalidad_routes import nacmod
 
 # Se registran los modulos de referenciales
 # Versión corta
-app.register_blueprint(ciudadmod, url_prefix="/ciudad")
-app.register_blueprint(nacmod, url_prefix="/nacionalidad")
+ref = '/seguridad'
+app.register_blueprint(ciudadmod, url_prefix=f"{ref}/ciudad")
+app.register_blueprint(nacmod, url_prefix=f"{ref}/nacionalidad")
 
 # Versión larga
 #app.register_blueprint(rutas.ciudad.ciudad_routes.ciudadmod, url_prefix="/ciudad")
