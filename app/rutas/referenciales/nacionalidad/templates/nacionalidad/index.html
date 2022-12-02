@@ -37,8 +37,8 @@ Nacionalidad
                                         <th scope="row" class="align-middle">{{ item[1] }}</th>
                                         <td class="d-flex justify-content-end">
                                             <div class="btn-group" role="group" aria-label="Botones para accion">
-                                                <button type="button" class="btn btn-outline-primary">Editar</button>
-                                                <button type="button" class="btn btn-outline-primary">Eliminar</button>
+                                                <a class="btn btn-outline-primary" href="{{ url_for('nacionalidad.frm_nacionalidad', id=item[0], descripcion=item[1]) }}">Editar</a>
+                                                <a class="btn btn-outline-danger" href="{{ url_for('nacionalidad.eliminar_nacionalidad', id=item[0]) }}">Eliminar</a>
                                             </div>
                                         </td>
                                     </tr>

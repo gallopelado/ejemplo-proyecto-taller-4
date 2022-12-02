@@ -24,14 +24,26 @@ Formulario Nacionalidad
                         <!-- formulario -->
                         <form action="{{ url_for('nacionalidad.guardar_nacionalidad') }}" method="post">
                             <div class="card-body">
+                                {% if nac.id %}
+                                <input type="hidden" name="txt_id_nacionalidad" value="{{ nac.id }}">
+                                {% else %}
                                 <input type="hidden" name="txt_id_nacionalidad">
+                                {% endif %}
                                 <div class="mb-3">
                                     <label for="txt_nacionalidad" class="form-label">Descripción</label>
+                                    {% if nac.id %}
+                                    <input type="text" class="form-control" id="txt_nacionalidad" name="txt_nacionalidad" value="{{ nac.descripcion }}">
+                                    {% else %}
                                     <input type="text" class="form-control" id="txt_nacionalidad" name="txt_nacionalidad">
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="card-footer">
+                                {% if nac.id %}
+                                <button type="submit" class="btn btn-warning" id="btn_nacionalidad_enviar" name="btn_nacionalidad_enviar">Editar</button>
+                                {% else %}
                                 <button type="submit" class="btn btn-primary" id="btn_nacionalidad_enviar" name="btn_nacionalidad_enviar">Guardar</button>
+                                {% endif %}
                             </div>
                         </form>
                         <!-- formulario/ -->
