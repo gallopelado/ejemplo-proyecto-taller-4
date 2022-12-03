@@ -45,4 +45,7 @@ def eliminar_nacionalidad():
 @nacmod.route('/get_nacionalidad_id/<id>', methods=['GET'])
 def get_nacionalidad(id):
     item = nac_model.traerPorId(escape(id))
-    return jsonify(item)
+    data = {
+        "id": item[0], "nacionalidad": item[1]
+    }
+    return jsonify(data)

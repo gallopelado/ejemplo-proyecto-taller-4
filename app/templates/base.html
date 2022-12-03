@@ -696,6 +696,7 @@
         
         {# Layout de los recursos de javascript. #} 
         <script src="{{ url_for('static', filename='bootstrap/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/jquery-3.6.1.min.js') }}" crossorigin="anonymous"></script>
         {#  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> #}
         <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
         <script src="{{ url_for('static', filename='js/Chart.min.js') }}" crossorigin="anonymous"></script>
@@ -703,5 +704,7 @@
         <script src="{{ url_for('static', filename='assets/demo/chart-bar-demo.js') }}"></script>
         <script src="{{ url_for('static', filename='js/simple-datatables@latest.js') }}" crossorigin="anonymous"></script>
         <script src="{{ url_for('static', filename='js/datatables-simple-demo.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+        {% block js %}{% endblock %}
     </body>
 </html>
