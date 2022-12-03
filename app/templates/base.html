@@ -9,9 +9,9 @@
         <title>
             Mi sistema - {% block titulo_pagina %}{% endblock %}
         </title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/style_simple_datatable.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/font_awesome.js') }}"></script>
     </head>
     <body class="sb-nav-fixed">
         {# barra top #}
