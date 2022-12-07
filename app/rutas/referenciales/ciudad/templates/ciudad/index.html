@@ -9,7 +9,7 @@ Ciudad
         <div class="container-fluid px-4">
             <h1 class="mt-4">
                 {% block mi_dashboard_title %}
-                Referencial Nacionalidad
+                Referencial Ciudad
                 {% endblock %}
             </h1>
             <div class="row">
@@ -18,7 +18,8 @@ Ciudad
                         <div class="card-header">
                             <div class="d-flex flex-row justify-content-between">
                                 <h5>Inicio - Lista de ciudades</h5>
-                                <a class="btn btn-outline-primary" href="{{ url_for('nacionalidad.frm_nacionalidad') }}">Agregar</a>
+                                <button type="button" id="bt_ciudad_agregar" class="btn btn-outline-primary">Agregar</button>
+                                
                             </div>
                         </div>
                         <div class="card-body">
@@ -29,13 +30,58 @@ Ciudad
                                     <th scope="col" class="text-end">Acción</th>
                                   </tr>
                                 </thead>
-                                <tbody>
-                                                           
-                                </tbody>
+                                <tbody id="tbody_ciudad"></tbody>
                               </table>
                         </div>
                     </div>
                 </div>
+
+                <!--el modal-->
+                <div class="modal" id="modal_ciudad_formulario">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal Heading</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <h5>Formulario Nacionalidad</h5>
+                                    </div>
+                                </div>
+                                <!-- formulario -->
+                                <div>
+                                    <div class="card-body">
+                                        <input type="hidden" name="txt_id_ciudad" id="txt_id_ciudad">
+                                        <div class="mb-3">
+                                            <label for="txt_nacionalidad" class="form-label">Descripción</label>
+                                            <input type="text" class="form-control" id="txt_ciudad" name="txt_ciudad">
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-primary" id="btn_nacionalidad_enviar" name="btn_nacionalidad_enviar">Guardar</button>
+                                    </div>
+                                </div>
+                                <!-- formulario/ -->
+                            </div>
+                        </div>
+                
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                
+                    </div>
+                    </div>
+                </div>
+                <!--el modal/-->
+
             </div>
         </div>
     </main>

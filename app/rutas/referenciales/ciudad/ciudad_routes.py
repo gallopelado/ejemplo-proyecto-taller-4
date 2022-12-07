@@ -29,5 +29,15 @@ def get_ciudad_id(id):
     }
     return jsonify(data)
 
+@ciudadmod.route('/agregar_ciudad', methods=['POST'])
+def agregar_ciudad():
+    print(request.json['descripcion'])
+    # hacer las validaciones
+    descripcion = request.json['descripcion']
+    res = ciu_model.agregar(descripcion)
+    if res:
+        return jsonify({'estado': res, 'mensaje': 'se guardo exitosamente'})
+    return jsonify({'estado': 'error', 'mensaje': 'hendy'})
+
 
 

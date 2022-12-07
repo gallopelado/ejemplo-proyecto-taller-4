@@ -34,7 +34,7 @@ class CiudadModel:
             conexion = Conexion()
             con = conexion.getConexion()
             cursor = con.cursor()
-            cursor.execute("INSERT INTO public.ciudad(descripcion) VALUES(%s)", (descripcion,))
+            cursor.execute("INSERT INTO public.ciudades(descripcion) VALUES(%s)", (descripcion,))
             # Aqui se confirma la transaccion SQL
             con.commit()
             cursor.close()
