@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 
 loginmod = Blueprint('login', __name__, template_folder='templates')
 
@@ -21,8 +21,9 @@ def index():
                 session['rol'] = 'invitado'
             return redirect(url_for('login.inicio'))
         else:
-            return redirect(url_for('login.inicio'))
-    return render_template('login/index.html')
+            flash('Usuario o clave incorrectos', 'warning')
+            return redirect(url_for('login.index'))
+    return redirect(url_for('login.index'))
 
 @loginmod.route('/inicio')
 def inicio():
