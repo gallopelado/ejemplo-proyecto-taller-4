@@ -1,10 +1,15 @@
-from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, session
 from markupsafe import escape
 from app.modelos.referenciales.nacionalidades.NacionalidadModel import NacionalidadModel
 
 # Se crea el módulo para Blueprint
 nacmod = Blueprint("nacionalidad", __name__, template_folder="templates")
 nac_model = NacionalidadModel()
+
+@nacmod.before_request
+def before_request():
+    if 'user' not in session:
+        return redirect(url_for('login.index'))
 
 # Los endpoints de formularios
 @nacmod.route('/')
