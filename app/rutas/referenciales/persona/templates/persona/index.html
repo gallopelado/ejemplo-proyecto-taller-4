@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block titulo_pagina %}Persona{% endblock %}
+
+{% block contenido %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">
+                {% block mi_dashboard_title %}
+                Referencial Persona
+                {% endblock %}
+            </h1>
+            <div class="row">
+                <div class="col-xl-10">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex flex-row justify-content-between">
+                                <h5>Inicio - Lista de Personas</h5>
+                                <a class="btn btn-outline-primary" href="{{ url_for('nacionalidad.frm_nacionalidad') }}">Agregar</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Persona</th>
+                                    <th scope="col">Cédula</th>
+                                    <th scope="col">Sexo</th>
+                                    <th scope="col" class="text-end">Acción</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                    <tr>
+                                        <th scope="row" class="align-middle">{{ item[1] }}</th>
+                                        <td class="d-flex justify-content-end">
+                                            <div class="btn-group" role="group" aria-label="Botones para accion">
+                                                <a class="btn btn-outline-primary" href="{{ url_for('nacionalidad.frm_nacionalidad', id=item[0], descripcion=item[1]) }}">Editar</a>
+                                                <a class="btn btn-outline-danger" href="{{ url_for('nacionalidad.eliminar_nacionalidad', id=item[0]) }}">Eliminar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  {% endfor %}                         
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+{% endblock %}
