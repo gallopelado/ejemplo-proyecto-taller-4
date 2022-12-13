@@ -1,3 +1,4 @@
+import psycopg2
 from flask import current_app as app
 from app.conexion.Conexion import Conexion
 
@@ -40,8 +41,8 @@ class CiudadModel:
             cursor.close()
             con.close()
             return True
-        except:
-            app.logger.error('Ha ocurrido un error al INSERTAR')
+        except (Exception, psycopg2.DatabaseError) as error:
+            app.logger.error(f'Ha ocurrido un error al INSERTAR, mensaje= {error}')
             
     def actualizar(self, id, descripcion):
         try:

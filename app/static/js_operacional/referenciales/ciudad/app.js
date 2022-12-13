@@ -13,6 +13,9 @@ $(async()=> {
     // asignando el evento al boton agregar
     bt_ciudad_agregar.on('click', () => {
       // activando el modal, mostrando
+      // limpiar formulario
+      $('#txt_id_ciudad').val('')
+      $('#txt_ciudad').val('')
       modal_ciudad_formulario.modal('show')
     })
 
@@ -28,8 +31,30 @@ $(async()=> {
         }
         try {
           // enviar la ciudad a mi servidor
-          debugger
-          const respuesta = await axios.post('/seguridad/ciudad/agregar_ciudad', ciudad)
+          // destructuracion
+          const { data } = await axios.post('/seguridad/ciudad/agregar_ciudad', ciudad)
+          if(data.estado && data.estado !== 'error') {
+            // cerrar el modal
+            modal_ciudad_formulario.modal('hide')
+            // limpiar formulario
+            $('#txt_id_ciudad').val('')
+            $('#txt_ciudad').val('')
+            // mensaje exitoso
+            Notiflix.Report.success('Correcto', 'Se ha guardado el registro', 'Salir')
+            return
+          }
+
+          if(data.estado && data.estado === 'error') {
+            // cerrar el modal
+            modal_ciudad_formulario.modal('hide')
+            // mensaje exitoso
+            Notiflix.Report.warning('Cuidado', 'No se ha guardado el registro', 'Salir')
+            console.error(data.mensaje)
+            return
+          }
+
+          Notiflix.Report.warnign('Cuidado', 'No se ha guardado el registro', 'Salir')
+
           console.log(respuesta)
         } catch (error) {
           console.log(error)
