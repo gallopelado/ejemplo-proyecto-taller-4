@@ -10,6 +10,14 @@ $(async()=> {
   const a_ciudad_limpiar_tabla = $('#a_ciudad_limpiar_tabla')
   try {
     
+    // Traer las ciudades
+    await traerCiudades()
+
+    $('button[name="bt_ciudad_eliminar"]').on('click', () => {
+      alert('Soy la forma mas larga de usarme')
+      //funcion editar
+    })
+
     // asignando el evento al boton agregar
     bt_ciudad_agregar.on('click', () => {
       // activando el modal, mostrando
@@ -41,6 +49,8 @@ $(async()=> {
             $('#txt_ciudad').val('')
             // mensaje exitoso
             Notiflix.Report.success('Correcto', 'Se ha guardado el registro', 'Salir')
+            $("#tbody_ciudad").empty()//limpiar el tbody
+            await traerCiudades()
             return
           }
 
@@ -85,3 +95,33 @@ $(async()=> {
     console.error(error)
   }
 })
+
+window.editar_ciudad = (id, texto) => {
+  alert(`editando elemento, ${id} - ${texto}`)
+  //editar
+}
+
+const traerCiudades = async() => {
+  try{
+    const respuesta = await axios.get("/seguridad/ciudad/get_ciudades");
+    console.log(respuesta.data);
+    const lista_ciudades = respuesta.data;
+    const tbody = $("#tbody_ciudad");
+    let contenido = "";
+    lista_ciudades.forEach((item) => {
+      contenido += `<tr>
+                        <td>${item.descripcion}</td>
+                        <td class="d-flex justify-content-end">
+                            <div class="btn-group" role="group" aria-label="Botones para accion">
+                                <button type="button" name="bt_ciudad_editar" class="btn btn-outline-primary" onclick="editar_ciudad('${item.id}', '${item.descripcion}')">Editar</button>
+                                <button type="button" name="bt_ciudad_eliminar" class="btn btn-outline-danger">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>`;
+    });
+    //console.log(contenido)
+    tbody.html(contenido);
+  } catch(error) {
+    console.log(`El errorcillo se esta mostrando - ${error}`)
+  }
+}
