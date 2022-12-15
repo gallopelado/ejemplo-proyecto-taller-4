@@ -27,21 +27,66 @@ $(async()=> {
         ,descripcion: $(this).attr('descri_ciudad')
       }
 
-      $('#btn_nacionalidad_enviar').text('Editar').removeClass('btn-primary').addClass('btn-warning')
+      //$('#btn_nacionalidad_enviar').text('Editar').removeClass('btn-primary').addClass('btn-warning')
       //$('#btn_nacionalidad_enviar').removeClass('btn-primary')
       //$('#btn_nacionalidad_enviar').addClass('btn-warning')
       // seteando el modal
       $('#txt_id_ciudad').val(ciudad.id)
       $('#txt_ciudad').val(ciudad.descripcion)
+      $('#btn_nacionalidad_enviar').hide()
+      $('#btn_form_ciudad_editar').show()
       modal_ciudad_formulario.modal('show')
     })
 
-    // asignando el evento al boton agregar
+    // asignando evento al boton editar del modal
+    $('#btn_form_ciudad_editar').on('click', async function() {
+      const v_id = $('#txt_id_ciudad').val()
+      const v_descripcion = $('#txt_ciudad').val()
+      if(v_descripcion && v_descripcion.trim()) {
+        const ciudad = {
+          id: v_id, descripcion: v_descripcion.toUpperCase()
+        }
+        try {
+          // vamos a enviar la ciudad a editar
+          // destructuracion
+          const { data } = await axios.put('/seguridad/ciudad/editar_ciudad', ciudad)
+          if(data.estado && data.estado !== 'error') {
+            // cerrar el modal
+            modal_ciudad_formulario.modal('hide')
+            // limpiar formulario
+            $('#txt_id_ciudad').val('')
+            $('#txt_ciudad').val('')
+            // mensaje exitoso
+            Notiflix.Report.success('Correcto', 'Se ha actualizado el registro', 'Salir')
+            $("#tbody_ciudad").empty()//limpiar el tbody
+            await traerCiudades()
+            return
+          }
+
+          if(data.estado && data.estado === 'error') {
+            // cerrar el modal
+            modal_ciudad_formulario.modal('hide')
+            // mensaje exitoso
+            Notiflix.Report.warning('Cuidado', 'No se ha actualizado el registro', 'Salir')
+            console.error(data.mensaje)
+            return
+          }
+
+          Notiflix.Report.warnign('Cuidado', 'No se ha actualizado el registro', 'Salir')
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    })
+
+    // asignando el evento al boton agregar, :)
     bt_ciudad_agregar.on('click', () => {
       // activando el modal, mostrando
       // limpiar formulario
       $('#txt_id_ciudad').val('')
       $('#txt_ciudad').val('')
+      $('#btn_nacionalidad_enviar').show()
+      $('#btn_form_ciudad_editar').hide()
       modal_ciudad_formulario.modal('show')
     })
 
@@ -124,7 +169,7 @@ $(async()=> {
 const traerCiudades = async() => {
   try{
     const respuesta = await axios.get("/seguridad/ciudad/get_ciudades");
-    console.log(respuesta.data);
+    //console.log(respuesta.data);
     const lista_ciudades = respuesta.data;
     const tbody = $("#tbody_ciudad");
     let contenido = "";

@@ -39,5 +39,14 @@ def agregar_ciudad():
         return jsonify({'estado': res, 'mensaje': 'se guardo exitosamente'})
     return jsonify({'estado': 'error', 'mensaje': 'hendy'})
 
+@ciudadmod.route('/editar_ciudad', methods=['PUT'])
+def editar_ciudad():
+    print(request.json)
+    id = request.json['id']
+    descripcion = request.json['descripcion']
+    res = ciu_model.actualizar(id, descripcion)
+    if res:
+        return jsonify({'estado': res, 'mensaje': 'se actualizó exitosamente'})
+    return jsonify({'estado': 'error', 'mensaje': 'hendy'})
 
 

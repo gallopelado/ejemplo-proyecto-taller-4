@@ -55,8 +55,8 @@ class CiudadModel:
             cursor.close()
             con.close()
             return True
-        except:
-            app.logger.error('Ha ocurrido un error al ACTUALIZAR')
+        except (Exception, psycopg2.DatabaseError) as error:
+            app.logger.error('Ha ocurrido un error al ACTUALIZAR, mensaje= {error}')
             
     def eliminar(self, id):
         try:
