@@ -13,9 +13,36 @@ $(async()=> {
     // Traer las ciudades
     await traerCiudades()
 
-    $('button[name="bt_ciudad_eliminar"]').on('click', () => {
-      alert('Soy la forma mas larga de usarme')
+    $('button[name="bt_ciudad_eliminar"]').on('click', function() {
       //funcion eliminar
+      const id = $(this).attr('id_ciudad')
+      Notiflix.Confirm.show(
+        'Mensaje de confirmación'
+        , '¿Desea eliminar este registro?'
+        , 'Sí', 'No'
+        , async () => {
+          // El usuario seleccionó Sí
+          // realizar la operación delete
+          // /seguridad/ciudad/eliminar_ciudad/10
+          try {
+            if(id) {
+              const { data } = await axios.delete(`/seguridad/ciudad/eliminar_ciudad/${id}`)
+              if(data.estado && data.estado !== 'error') {
+                Notiflix.Report.success('Correcto', 'Se ha realizado la operación', 'Salir')
+                await traerCiudades() //actualizar la tabla
+                return
+              }
+              if(data.estado && data.estado === 'error') {
+                Notiflix.Report.warning('Cuidado', 'No se ha eliminado el registro', 'Salir')
+                return
+              }
+            } else Notiflix.Report.failure('Cuidado', 'No existe el id para la operación', 'Salir')
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        , () => Notiflix.Report.warning('Cancelaste', 'Se ha cancelado la operación', 'Salir')
+        )
     })
 
     // boton editar
@@ -175,22 +202,72 @@ const traerCiudades = async() => {
     let contenido = "";
     lista_ciudades.forEach((item) => {
       contenido += `<tr name="mi_tr">
-                        <td>
-                          <a href="">
-                            ${item.descripcion}
-                          </a>
-                          </td>
+                        <th scope="row">${item.descripcion}</th>
                         <td class="d-flex justify-content-end">
                             <div class="btn-group" role="group" aria-label="Botones para accion">
                                 <button type="button" name="bt_ciudad_editar" class="btn btn-outline-primary" id_ciudad="${item.id}" descri_ciudad="${item.descripcion}">Editar</button>
-                                <button type="button" name="bt_ciudad_eliminar" class="btn btn-outline-danger">Eliminar</button>
+                                <button type="button" name="bt_ciudad_eliminar" class="btn btn-outline-danger" id_ciudad="${item.id}">Eliminar</button>
                             </div>
                         </td>
                     </tr>`;
     });
     //console.log(contenido)
-    tbody.html(contenido);
+    tbody.html(contenido)
+    // volver a recuperar los eventos para los botones
+    evento_botones_editar()
+    evento_botones_eliminar()
   } catch(error) {
     console.log(`El errorcillo se esta mostrando - ${error}`)
   }
+}
+
+const evento_botones_editar = () => {
+  const modal_ciudad_formulario = $('#modal_ciudad_formulario')
+  $('button[name="bt_ciudad_editar"]').on('click', function() {
+    const ciudad = { 
+      id: $(this).attr('id_ciudad') 
+      ,descripcion: $(this).attr('descri_ciudad')
+    }
+
+    // seteando el modal
+    $('#txt_id_ciudad').val(ciudad.id)
+    $('#txt_ciudad').val(ciudad.descripcion)
+    $('#btn_nacionalidad_enviar').hide()
+    $('#btn_form_ciudad_editar').show()
+    modal_ciudad_formulario.modal('show')
+  })
+}
+
+const evento_botones_eliminar = () => {
+  $('button[name="bt_ciudad_eliminar"]').on('click', function() {
+    //funcion eliminar
+    const id = $(this).attr('id_ciudad')
+    Notiflix.Confirm.show(
+      'Mensaje de confirmación'
+      , '¿Desea eliminar este registro?'
+      , 'Sí', 'No'
+      , async () => {
+        // El usuario seleccionó Sí
+        // realizar la operación delete
+        // /seguridad/ciudad/eliminar_ciudad/10
+        try {
+          if(id) {
+            const { data } = await axios.delete(`/seguridad/ciudad/eliminar_ciudad/${id}`)
+            if(data.estado && data.estado !== 'error') {
+              Notiflix.Report.success('Correcto', 'Se ha realizado la operación', 'Salir')
+              await traerCiudades() //actualizar la tabla
+              return
+            }
+            if(data.estado && data.estado === 'error') {
+              Notiflix.Report.warning('Cuidado', 'No se ha eliminado el registro', 'Salir')
+              return
+            }
+          } else Notiflix.Report.failure('Cuidado', 'No existe el id para la operación', 'Salir')
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      , () => Notiflix.Report.warning('Cancelaste', 'Se ha cancelado la operación', 'Salir')
+      )
+  })
 }

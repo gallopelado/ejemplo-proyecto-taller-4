@@ -49,4 +49,10 @@ def editar_ciudad():
         return jsonify({'estado': res, 'mensaje': 'se actualizó exitosamente'})
     return jsonify({'estado': 'error', 'mensaje': 'hendy'})
 
+@ciudadmod.route('/eliminar_ciudad/<id>', methods=['DELETE'])
+def eliminar_ciudad(id):
+    res = ciu_model.eliminar(escape(id))
+    if res:
+        return jsonify({'estado': res, 'mensaje': 'se eliminó exitosamente'})
+    return jsonify({'estado': 'error', 'mensaje': 'hendy'})
 
